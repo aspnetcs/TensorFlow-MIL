@@ -1,0 +1,58 @@
+https://blog.csdn.net/warrah/article/details/75395660
+bug宝典Python篇 pkg_resources.DistributionNotFound: The 'pip==7.1.0' distribution was not found and is
+
+bug宝典Python篇 pkg_resources.DistributionNotFound: The 'pip==7.1.0' distribution was not found and is
+
+warrah 2017-07-19 16:06:14  9340  收藏
+分类专栏： bug宝典 文章标签： python bug
+版权
+#安装pip
+tar -zxvf pip-9.0.1.tar.gz 
+cd pip-9.0.1
+python setup.py install 
+1
+2
+3
+4
+再执行pip --version，提示下面的异常
+
+[root@ceshi187 pip-9.0.1]# pip --version
+Traceback (most recent call last):
+  File "/usr/bin/pip", line 5, in <module>
+    from pkg_resources import load_entry_point
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 3038, in <module>
+    @_call_aside
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 3022, in _call_aside
+    f(*args, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 3051, in _initialize_master_working_set
+    working_set = WorkingSet._build_master()
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 659, in _build_master
+    return cls._build_from_requirements(__requires__)
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 672, in _build_from_requirements
+    dists = ws.resolve(reqs, Environment())
+  File "/usr/local/lib/python2.7/site-packages/pkg_resources/__init__.py", line 857, in resolve
+    raise DistributionNotFound(req, requirers)
+pkg_resources.DistributionNotFound: The 'pip==7.1.0' distribution was not found and is required by the application
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+解决方案是
+
+使用easy_install pip==7.1.0
+然后再安装easy_install pip==9.0.1
+然后删掉rm -f /usr/local/lib/python2.7/site-packages/pip-7.1.0-py2.7.egg
+问题就这么解决了，虽然不知道为什么会这样
