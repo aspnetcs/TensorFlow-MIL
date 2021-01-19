@@ -1,0 +1,44 @@
+https://blog.csdn.net/qianglei6077/article/details/86698847
+Python3.7无法正常导入ssl--ImportError: No module named _ssl
+
+Expect-乐 2019-01-30 09:21:03  4552  收藏 2
+分类专栏： Python 文章标签： ssl
+版权
+1.说明
+在升级到python3.7后，发现pip无法正常安装模块，报错信息如下：
+
+>>> import ssl
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+File "/usr/local/python37/lib/python3.7/ssl.py", line 60, in <module>
+import _ssl # if we can't import it, let the error propagate
+ImportError: No module named _ssl
+1
+2
+3
+4
+5
+6
+2.解决方法
+2.1修改Setup.dist文件
+[root@storage2 ~]# vi /root/Python-3.7.1/Modules/Setup.dist
+
+2.2修改结果如下：
+将下面原本注释掉的内容给取消注释即可，一共四行
+# Socket module helper for socket(2)
+_socket socketmodule.c timemodule.c
+
+# Socket module helper for SSL support; you must comment out the other
+# socket line above, and possibly edit the SSL variable:
+SSL=/usr/local/ssl
+_ssl _ssl.c /
+-DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl /
+1
+2
+3
+4
+5
+2.3重新编译安装
+[root@storage2 Python-3.7.1]#./configure --prefix=/usr/local/python37
+[root@storage2 Python-3.7.1]#make
+[root@storage2 Python-3.7.1]#make install
