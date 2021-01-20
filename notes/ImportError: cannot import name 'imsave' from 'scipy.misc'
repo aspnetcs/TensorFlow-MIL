@@ -1,0 +1,17 @@
+https://blog.csdn.net/sinat_37879440/article/details/102919595
+ImportError: cannot import name 'imsave' from 'scipy.misc'
+
+菜喵子打洗你 2019-11-05 17:03:44  3787  收藏 4
+文章标签： python linux
+版权
+ImportError: cannot import name 'imsave' from 'scipy.misc'
+试了很多方法都不能行，按照以下步骤装成功的，亲测有效
+
+pip install numpy
+pip install scipy==1.2.1 (这是重点！！！！之前装过了可以pip uninstall)
+pip install matplotlib
+pip install Pillow
+
+标记文本
+
+删除文本
